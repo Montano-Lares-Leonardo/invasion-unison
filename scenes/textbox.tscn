@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://dug3edanlvid3"]
+
+[ext_resource type="Script" uid="uid://cskecxp31cpfr" path="res://scripts/textbox.gd" id="1_c4wvf"]
+[ext_resource type="Texture2D" uid="uid://ciflo3i4yftc6" path="res://assets/talkbox.png" id="2_1rgox"]
+[ext_resource type="Texture2D" uid="uid://cs8h3pq5ailj8" path="res://assets/facealien.png" id="3_6occq"]
+[ext_resource type="Texture2D" uid="uid://qfr5d1535h7a" path="res://assets/faceglorpina.png" id="4_b4n6f"]
+[ext_resource type="Texture2D" uid="uid://flijkrwq50oi" path="res://assets/facenavawo.png" id="5_van45"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6occq")
+}],
+"loop": 1,
+"name": &"alien",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_b4n6f")
+}],
+"loop": 1,
+"name": &"glorpina",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_van45")
+}],
+"loop": 1,
+"name": &"navawo",
+"speed": 5.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g4v7s"]
+font_size = 30
+
+[sub_resource type="Animation" id="Animation_bx1jh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("axis:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_55v5i"]
+resource_name = "enter"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("axis:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(3.8637435, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_03dsf"]
+_data = {
+&"RESET": SubResource("Animation_bx1jh"),
+&"enter": SubResource("Animation_55v5i")
+}
+
+[node name="textbox" type="CanvasLayer" unique_id=1913434302]
+script = ExtResource("1_c4wvf")
+
+[node name="axis" type="Node2D" parent="." unique_id=1934102102]
+z_index = 4
+position = Vector2(230, 661)
+
+[node name="Sprite2D" type="Sprite2D" parent="axis" unique_id=2096328979]
+position = Vector2(331.00003, -207)
+scale = Vector2(5.05, 5.05)
+texture = ExtResource("2_1rgox")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="axis/Sprite2D" unique_id=1037767746]
+z_index = -1
+position = Vector2(-37.425747, -4.7524743)
+scale = Vector2(0.013, 0.013)
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+animation = &"navawo"
+
+[node name="Label" type="Label" parent="axis" unique_id=2023089731]
+offset_left = 253.0
+offset_top = -185.0
+offset_right = 523.0
+offset_bottom = -143.0
+text = "whachu talmbout?"
+label_settings = SubResource("LabelSettings_g4v7s")
+
+[node name="animator" type="AnimationPlayer" parent="axis" unique_id=460534932]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_03dsf")
+
+[connection signal="animation_finished" from="axis/animator" to="." method="_on_animator_animation_finished"]

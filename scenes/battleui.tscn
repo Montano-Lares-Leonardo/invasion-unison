@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://cdly0t4lamhht"]
+
+[ext_resource type="Script" uid="uid://dwo6c78muhf45" path="res://scripts/battleui.gd" id="1_iuvsv"]
+[ext_resource type="Texture2D" uid="uid://rul42tegistg" path="res://assets/uibars.png" id="1_o0rd2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p1u0y"]
+bg_color = Color(1, 0.23000002, 0.23000002, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5s0fj"]
+bg_color = Color(2.887845e-06, 0.64794517, 0.90286195, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_g4v7s"]
+font_size = 25
+
+[node name="battleui" type="Node2D" unique_id=917736469]
+z_index = 3
+script = ExtResource("1_iuvsv")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=966976508]
+position = Vector2(117, 590)
+scale = Vector2(3.415, 3.415)
+texture = ExtResource("1_o0rd2")
+
+[node name="lifebar" type="ProgressBar" parent="Sprite2D" unique_id=2092757384]
+offset_left = -16.691069
+offset_top = -6.734992
+offset_right = 26.061495
+offset_bottom = 20.265007
+scale = Vector2(1, 0.1)
+theme_override_styles/fill = SubResource("StyleBoxFlat_p1u0y")
+max_value = 99.0
+value = 99.0
+show_percentage = false
+
+[node name="stancebar" type="ProgressBar" parent="Sprite2D" unique_id=183239566]
+offset_left = -16.691
+offset_top = 4.0
+offset_right = 26.061563
+offset_bottom = 31.0
+scale = Vector2(1, 0.1)
+theme_override_styles/fill = SubResource("StyleBoxFlat_5s0fj")
+max_value = 99.0
+value = 99.0
+show_percentage = false
+
+[node name="charactername" type="Label" parent="." unique_id=610100064]
+offset_left = 28.0
+offset_top = 511.0
+offset_right = 179.0
+offset_bottom = 546.0
+text = "EL HUMANO"
+label_settings = SubResource("LabelSettings_g4v7s")

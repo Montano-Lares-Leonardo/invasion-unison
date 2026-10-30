@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://d0rhdbjxhibqn"]
+
+[ext_resource type="PackedScene" uid="uid://c2v5yxh81daon" path="res://scenes/prota.tscn" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://dcsn1f4xupvv6" path="res://scripts/enemy.gd" id="2_md0e3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+radius = 250.0
+
+[node name="enemy" unique_id=2101468740 instance=ExtResource("1_7p1mj")]
+script = ExtResource("2_md0e3")
+
+[node name="playerdetector" type="Area2D" parent="." index="3" unique_id=1436471709]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerdetector" index="0" unique_id=901737374]
+shape = SubResource("CircleShape2D_g4v7s")
+
+[connection signal="body_entered" from="playerdetector" to="." method="_on_playerdetector_body_entered"]

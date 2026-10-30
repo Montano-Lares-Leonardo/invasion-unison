@@ -1,0 +1,168 @@
+[gd_scene format=3 uid="uid://c2v5yxh81daon"]
+
+[ext_resource type="Script" uid="uid://h0bis7fnkbd3" path="res://scripts/player.gd" id="1_yg6dx"]
+[ext_resource type="Texture2D" uid="uid://bgixfwde1v0jw" path="res://assets/protag.png" id="2_1qcsf"]
+[ext_resource type="PackedScene" uid="uid://dnw44dcw0iw1c" path="res://scenes/slash.tscn" id="3_gvsfh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ts6vh"]
+atlas = ExtResource("2_1qcsf")
+region = Rect2(64, 0, 32, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfo7t"]
+atlas = ExtResource("2_1qcsf")
+region = Rect2(256, 0, 32, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ekuj"]
+atlas = ExtResource("2_1qcsf")
+region = Rect2(160, 0, 32, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4bq7e"]
+atlas = ExtResource("2_1qcsf")
+region = Rect2(0, 0, 32, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvsfh"]
+atlas = ExtResource("2_1qcsf")
+region = Rect2(192, 0, 32, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2syi6"]
+atlas = ExtResource("2_1qcsf")
+region = Rect2(96, 0, 32, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghjub"]
+atlas = ExtResource("2_1qcsf")
+region = Rect2(32, 0, 32, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cma2o"]
+atlas = ExtResource("2_1qcsf")
+region = Rect2(224, 0, 32, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_67op4"]
+atlas = ExtResource("2_1qcsf")
+region = Rect2(128, 0, 32, 42)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k628d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ts6vh")
+}],
+"loop": 1,
+"name": &"slashdown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfo7t")
+}],
+"loop": 1,
+"name": &"slashlr",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ekuj")
+}],
+"loop": 1,
+"name": &"slashup",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4bq7e")
+}],
+"loop": 1,
+"name": &"standdown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvsfh")
+}],
+"loop": 1,
+"name": &"standlr",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2syi6")
+}],
+"loop": 1,
+"name": &"standup",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_ghjub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4bq7e")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_ts6vh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4bq7e")
+}],
+"loop": 1,
+"name": &"walkdown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_cma2o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvsfh")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_sfo7t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvsfh")
+}],
+"loop": 1,
+"name": &"walklr",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_67op4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2syi6")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_2ekuj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2syi6")
+}],
+"loop": 1,
+"name": &"walkup",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4v7s"]
+radius = 25.0
+height = 86.0
+
+[node name="protagonist" type="CharacterBody2D" unique_id=2101468740 groups=["player", "slashable"]]
+script = ExtResource("1_yg6dx")
+
+[node name="bodyanim" type="AnimatedSprite2D" parent="." unique_id=519268292]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_k628d")
+animation = &"standdown"
+speed_scale = 2.0
+
+[node name="hitbox" type="CollisionShape2D" parent="." unique_id=240079525]
+shape = SubResource("CapsuleShape2D_g4v7s")
+
+[node name="slash" parent="." unique_id=1807291467 instance=ExtResource("3_gvsfh")]
+monitoring = false
+
+[node name="slashtimer" type="Timer" parent="slash" unique_id=560621232]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="body_entered" from="slash" to="." method="_on_slash_body_entered"]
